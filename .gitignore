@@ -46,3 +46,6 @@ calculation_history.db
 
 # Excel temporary files
 ~$*.xlsx
+
+# Output directory
+output/

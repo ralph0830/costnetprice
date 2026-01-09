@@ -28,19 +28,34 @@ pip install openpyxl
 
 ### 실행
 
-#### 방법 1: 기존 GUI (레거시)
+#### Windows 사용자 (배치 파일)
+
+더블 클릭으로 바로 실행하세요:
+
+- `run_simple.bat` - GUI 바로 실행 (가장 간단)
+- `run.bat` - 가상환경 선택 후 GUI 실행
+- `run_examples.bat` - 사용 예제 실행 (메뉴 선택)
+- `install.bat` - 필수 라이브러리 설치
+
+**최초 설치 시:**
+1. `install.bat` 더블 클릭 → 라이브러리 설치
+2. `run_simple.bat` 더블 클릭 → 프로그램 실행
+
+#### Linux/Mac 사용자 (터미널)
+
+```bash
+# 1. 라이브러리 설치
+pip install openpyxl
+
+# 2. 프로그램 실행
+python main.py                # 메인 GUI
+python example_usage.py       # CLI 예제
+```
+
+#### 레거시 실행 (원본 코드)
+
 ```bash
 python calculate_net_price.py
-```
-
-#### 방법 2: 새 모듈 기반 GUI
-```bash
-python main.py
-```
-
-#### 방법 3: CLI 예제 (GUI 없음)
-```bash
-python example_usage.py
 ```
 
 ## 🏗️ 프로젝트 구조
