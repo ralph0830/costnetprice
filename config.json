@@ -1,0 +1,33 @@
+{
+  "default_exchange_rate": 1150,
+  "default_weaving_fee": 450,
+  "default_dyeing_fee": 1900,
+  "default_weaving_loss": 2,
+  "default_dyeing_loss": 4,
+  "default_delay_loss": 6,
+  "default_fabric_width": 60,
+  "default_proc_weight": 205,
+  "default_selling_price": 1.5,
+  "exchange_rate_scenarios": [
+    {
+      "label": "낮은 환율",
+      "offset": -50
+    },
+    {
+      "label": "기준 환율",
+      "offset": 0
+    },
+    {
+      "label": "높은 환율",
+      "offset": 50
+    }
+  ],
+  "yarn_db_file": "yarn_db.json",
+  "history_db_file": "calculation_history.db",
+  "excel_template_file": "FabricCost_Form.xlsx",
+  "log_file": "app.log",
+  "window_width": 1160,
+  "window_height": 850,
+  "log_level": "DEBUG",
+  "console_log_level": "INFO"
+}

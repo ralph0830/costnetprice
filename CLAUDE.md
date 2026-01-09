@@ -6,13 +6,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 원단(Fabric) 원가 계산기 - 원사 배합, 가공비, 손실률 등을 고려하여 원단의 NET 단가를 계산하고 Excel로 출력하는 Tkinter GUI 애플리케이션입니다.
 
+**⚠️ 중요: 이 프로젝트는 모듈화 리팩토링을 완료했습니다.**
+- **레거시**: `calculate_net_price.py` (1303줄, 단일 파일)
+- **신규**: 모듈화된 구조 (`models/`, `services/`, `data/`, `utils/`)
+
 ## 실행 방법
 
+### 레거시 버전 (원본)
 ```bash
 python calculate_net_price.py
 ```
 
-애플리케이션이 실행되면 Tkinter GUI 창이 열립니다.
+### 신규 버전 (모듈 기반)
+```bash
+# GUI 실행
+python main.py
+
+# CLI 예제 (GUI 없음)
+python example_usage.py
+```
 
 ## 핵심 아키텍처
 
@@ -208,9 +220,82 @@ sys          # PyInstaller 경로 감지
 2. `get_all_inputs()`에서 해당 값 수집
 3. `calculate_single_scenario()`에서 손실 적용 로직 추가
 
+## 신규 모듈 구조 (v2.0)
+
+```
+costNETprice/
+├── models/                 # 데이터 모델 및 상수
+│   ├── constants.py        # 모든 매직 넘버를 상수로 정의
+│   └── yarn.py            # Yarn, CalculationResult 데이터 클래스
+├── services/              # 비즈니스 로직 (UI 독립)
+│   ├── converter.py       # 단위/통화 변환 유틸리티
+│   ├── validator.py       # 입력 검증 로직
+│   └── calculator.py      # 원가 계산 엔진
+├── data/                  # 데이터 접근 계층
+│   ├── yarn_repository.py     # yarn_db.json 관리
+│   └── history_repository.py  # calculation_history.db 관리
+├── utils/                 # 유틸리티
+│   ├── logger.py          # 로깅 시스템
+│   └── excel_exporter.py  # Excel 출력
+├── ui/                    # UI 레이어
+│   └── base_window.py     # 기본 윈도우 클래스
+├── config.py              # 설정 관리
+├── main.py                # 진입점 (신규)
+├── example_usage.py       # 사용 예제
+└── calculate_net_price.py # 레거시 코드 (백업)
+```
+
+## 새 모듈 사용 가이드
+
+### 1. 계산 수행
+```python
+from services.calculator import CostCalculator
+from services.validator import InputValidator
+
+# 입력 검증
+validation = InputValidator.validate_all_inputs(inputs)
+if not validation.is_valid():
+    print(validation.get_first_error())
+
+# 계산
+calculator = CostCalculator()
+result = calculator.calculate_single_scenario(inputs, exchange_rate)
+print(f"NET: ${result.net_cost_usd_yd:.2f}/yd")
+```
+
+### 2. 데이터 관리
+```python
+from data.yarn_repository import YarnRepository
+from data.history_repository import HistoryRepository
+
+# 원사 관리
+yarn_repo = YarnRepository()
+yarns = yarn_repo.get_all()
+yarn_repo.add(new_yarn)
+
+# 이력 관리
+history_repo = HistoryRepository()
+history_repo.add(item_name, inputs, results)
+```
+
+### 3. 설정 관리
+```python
+from config import get_config
+
+config = get_config()
+scenarios = config.get_exchange_scenarios(1150)
+```
+
 ## 알려진 제약사항
 
+### 레거시 코드 (calculate_net_price.py)
 - 단일 Python 파일로 구성되어 있어 코드가 길고 복잡함 (1303 lines)
-- 에러 처리가 `messagebox.showerror()`에 의존하여 CLI 환경에서 디버깅 어려움
-- Excel 템플릿 의존성: 템플릿 파일이 없으면 Excel 출력 불가
+- 에러 처리가 `messagebox.showerror()`에 의존
+- Excel 템플릿 의존성
 - 환율 시나리오가 하드코딩됨 (기준±50원)
+
+### 신규 모듈 (v2.0)
+- ✅ 모듈화 완료 (테스트 가능, 재사용 가능)
+- ✅ 로깅 시스템 도입
+- ✅ 설정 파일 기반 환율 시나리오
+- ⏳ UI 레이어 분리 진행 중
