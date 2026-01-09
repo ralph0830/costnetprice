@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "yarn_type": "Polyester",
+        "denier": 150,
+        "filament": 72,
+        "processing_type": "DTY",
+        "luster": "SD",
+        "recycle_status": "virgin",
+        "price_value": 0.8,
+        "price_currency": "$",
+        "price_unit": "lb",
+        "quality": "일반",
+        "created_at": "2025-06-05 18:38:15",
+        "updated_at": "2025-06-05 18:38:15"
+    },
+    {
+        "id": 2,
+        "yarn_type": "Polyester",
+        "denier": 75,
+        "filament": 36,
+        "processing_type": "DTY",
+        "luster": "BRT",
+        "recycle_status": "recycled",
+        "price_value": 1.2,
+        "price_currency": "$",
+        "price_unit": "lb",
+        "quality": "AAA",
+        "created_at": "2025-06-05 18:38:15",
+        "updated_at": "2025-06-05 18:38:15"
+    },
+    {
+        "id": 3,
+        "yarn_type": "Nylon",
+        "denier": 70,
+        "filament": 68,
+        "processing_type": "ATY",
+        "luster": "SD",
+        "recycle_status": "virgin",
+        "price_value": 2500,
+        "price_currency": "원화",
+        "price_unit": "kg",
+        "quality": "일반",
+        "created_at": "2025-06-05 18:38:15",
+        "updated_at": "2025-06-05 18:38:15"
+    },
+    {
+        "id": 4,
+        "yarn_type": "Custom",
+        "denier": 0,
+        "filament": 0,
+        "processing_type": "N/A",
+        "luster": "N/A",
+        "recycle_status": "N/A",
+        "price_value": 0.8,
+        "price_currency": "$",
+        "price_unit": "lb",
+        "quality": "일반",
+        "created_at": "2025-06-05 18:38:15",
+        "updated_at": "2025-06-05 18:38:15"
+    }
+]
